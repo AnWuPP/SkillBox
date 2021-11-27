@@ -362,9 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /SkillBox
-/m12t3/m12t3/m12t3.vcxproj
-/m12t3/m12t3/m12t3.vcxproj.filters
-/m12t2/m12t2/m12t2.vcxproj.filters
-/m12t2/m12t2/m12t2.vcxproj
-/m12t1/m12t1/m12t1.vcxproj.filters
-/m12t1/m12t1/m12t1.vcxproj
+*.vcxproj.filters
+*.vcxproj
