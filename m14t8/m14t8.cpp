@@ -30,7 +30,7 @@ int main()
             }
         }
     }
-
+    buf = 0;
     std::cout << "Input height for show world, use -1 for exit:" << std::endl;
     while (buf != -1) {
         std::cin >> buf;
