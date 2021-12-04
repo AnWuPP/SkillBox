@@ -7,13 +7,12 @@ bool substr(const char* a, const char* b) {
 		int j = 0;
 		bool fail = false;
 		while ((*(b + j) != '\0') && !found) {
-			fail = *(a + i + j) != *(b + j);
+			fail = *(a + i +j) == '\0' || *(a + i + j) != *(b + j);
 			++j;
 		}
 		found = !fail;
 		++i;
 	}
-
 	return found;
 }
 
