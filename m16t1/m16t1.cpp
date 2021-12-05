@@ -14,7 +14,7 @@ int main()
     speed += delta;
 
     while (!compare(speed, 0.0, 0.01)) {
-        std::cout << "Current speed: " << speed << " km/h, input next delta-speed: ";
+        std::printf("Current speed: %.1f km/h, input next delta-speed: ", speed);
         std::cin >> delta;
 
         speed += delta;
