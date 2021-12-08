@@ -6,7 +6,7 @@ bool substr(const char* a, const char* b) {
 	while ((*(a + i) != '\0') && !found) {
 		int j = 0;
 		bool fail = false;
-		while ((*(b + j) != '\0') && !found) {
+		while ((*(b + j) != '\0') && !fail) {
 			fail = *(a + i + j) == '\0' || *(a + i + j) != *(b + j);
 			++j;
 		}
