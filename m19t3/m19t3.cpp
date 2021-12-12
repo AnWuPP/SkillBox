@@ -7,6 +7,11 @@ int main()
 
 	file.open("base.txt");
 
+	if (!file.is_open()) {
+		std::cout << "Error open file" << std::endl;
+		return 1;
+	}
+
 	int max = 0;
 	std::string peaple = "";
 

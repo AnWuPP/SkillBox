@@ -7,7 +7,6 @@ int main()
     std::ifstream file;
 
     while (path != "/q") {
-        std::string content = "";
         char buffer[512];
         
         std::cout << "Input file path: ";
@@ -20,14 +19,14 @@ int main()
             continue;
         }
 
+
+        std::cout << "Content in file:" << std::endl;
         while (!file.eof()) {
             file.read(buffer, sizeof(buffer) - 1);
             buffer[file.gcount()] = 0;
-            content += buffer;
+            std::cout << buffer;
         }
-
-        std::cout << "Content in file:" << std::endl;
-        std::cout << content << std::endl;
+        std::cout << std::endl;
 
         file.close();
     }

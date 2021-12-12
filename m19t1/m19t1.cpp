@@ -5,7 +5,6 @@
 int main()
 {
 	std::string word;
-	std::vector<std::string> words;
 	std::ifstream file;
 
 	std::cout << "What is word your search? ";
@@ -13,15 +12,16 @@ int main()
 
 	file.open("words.txt");
 
-	while (!file.eof()) {
-		std::string r;
-		file >> r;
-		words.push_back(r);
+	if (!file.is_open()) {
+		std::cout << "Error open file" << std::endl;
+		return 1;
 	}
 
 	int count = 0;
-	for (int i = 0; i < words.size(); ++i) {
-		if (words[i] == word) count++;
+	while (!file.eof()) {
+		std::string r;
+		file >> r;
+		if (r == word) count++;
 	}
 
 	std::cout << "Your word finded " << count << " times." << std::endl;

@@ -11,9 +11,9 @@ int main()
         std::cout << "Input file path: ";
         std::cin >> path;
 
-        std::string ex = path.substr(path.length() - 3, path.length());
+        std::string ex = path.substr(path.length() - 4, path.length());
 
-        if (ex != "png" && ex != "PNG")
+        if (ex != ".png" && ex != ".PNG")
         {
             std::cout << "File is not PNG." << std::endl;
             continue;
