@@ -62,6 +62,10 @@ int main()
 {
 	std::string buffer;
 	std::ofstream file("pay.txt", std::ios::app);
+	if (!file.is_open()) {
+		std::cout << "Cant open file." << std::endl;
+		return 0;
+	}
 
 	std::cout << "Input new note by format: Name Surname Pay Date. Use \"end\" for exit." << std::endl;
 	while (true) {

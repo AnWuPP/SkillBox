@@ -23,6 +23,10 @@ bool getBase(std::string& path, int vec[]) {
 
 void saveBase(std::string& path, int vec[]) {
 	std::ofstream file(path, std::ios::binary);
+	if (!file.is_open()) {
+		std::cout << "Cant open file." << std::endl;
+		return;
+	}
 
 	for (int i = 0; i < 6; ++i) {
 		file.write((char*)&vec[i], sizeof(vec[i]));

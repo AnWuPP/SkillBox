@@ -6,6 +6,10 @@
 int main()
 {
 	std::ofstream file("pic.txt", std::ios::binary);
+	if (!file.is_open()) {
+		std::cout << "Cant open file." << std::endl;
+		return 0;
+	}
 
 	int w, h;
 	std::cout << "Input weight and height: ";
