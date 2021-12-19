@@ -28,10 +28,10 @@ int main()
 		std::cout << "Result: " << c.x << " " << c.y << std::endl;
 	}
 	else if (act == "scale") {
-		std::cout << "Enter A B and C D for vector 1 and 2" << std::endl;
-		std::cin >> a.x >> a.y >> b.x >> b.y;
+		std::cout << "Enter A B for vector 1 and scale number" << std::endl;
+		std::cin >> a.x >> a.y >> b.x;
 
-		double result = a.x * b.x + a.y * b.y;
+		double result = a.x * b.x + a.y * b.x;
 		std::cout << "Result: " << result << std::endl;
 	}
 	else if (act == "length") {
