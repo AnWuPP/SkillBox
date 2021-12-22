@@ -183,6 +183,8 @@ Plot fillPlot() {
     for (int i = 0; i < co; ++i) {
         plot.build.push_back(buildBath());
     }
+    
+    return plot;
 }
 
 int main()
