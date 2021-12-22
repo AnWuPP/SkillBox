@@ -1,36 +1,38 @@
 ﻿#include <iostream>
 #include <vector>
 
-struct stRoom {
-    int sqr = 0;
-    int type = 0;
+enum class RoomType {
+    BEDROOM,
+    KITCHEN,
+    BATHROOM,
+    NURSERY,
+    LIVING_ROOM
 };
 
-struct stPlot {
-    int sqr = 0;
+enum class BuildType {
+    HOUSE,
+    GARAGE,
+    BARN,
+    BATH
+};
 
-    struct {
-        int floors = 1;
-        std::vector<int> heightFloors;
-        std::vector<stRoom> rooms;
-        bool bake = false;
-    } home;
-
-    struct {
-        bool inc = false;
-        int sqr = 0;
-    } garage;
-
-    struct {
-        bool inc = false;
-        int sqr = 0;
-    } barn;
-
-    struct {
-        bool inc = false;
-        int sqr = 0;
-        bool bake = false;
-    } bath;
+struct Room {
+    int square = 0;
+    RoomType type = RoomType::BEDROOM;
+};
+struct Floor {
+    int height = 0;
+    std::vector<Room> rooms;
+};
+struct Build {
+    BuildType type = BuildType::HOUSE;
+    int square = 0;
+    std::vector<Floor> floors;
+    bool bake = false;
+};
+struct Plot {
+    int square = 0;
+    std::vector<Build> build;
 };
 
 void getAns(bool& val) {
@@ -48,111 +50,153 @@ void getAns(bool& val) {
     getAns(val);
 }
 
-void cleanCin() {
-    if (std::cin.fail())
-    {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+Build buildHouse() {
+    int coFloor = 0;
+    Build build;
+    
+    std::cout << "Add bake to house? ";
+    getAns(build.bake);
+
+    do {
+        std::cout << "Enter floor count (1-3): ";
+        std::cin >> coFloor;
+    } while (coFloor < 1 || coFloor > 3);
+
+    for (int i = 0; i < coFloor; ++i) {
+        Floor floor;
+        int coRoom = 0;
+        
+        do {
+            std::cout << "Enter height floor: ";
+            std::cin >> floor.height;
+        } while (floor.height < 1);
+        
+        do {
+            std::cout << "Enter room count (2-4) for " << i + 1 << " floor: ";
+            std::cin >> coRoom;
+        } while (coRoom < 2 || coRoom > 4);
+
+        for (int j = 0; j < coRoom; ++j) {
+            Room room;
+            int type = 0;
+            
+            do {
+                std::cout << "Enter room square: ";
+                std::cin >> room.square;
+            } while (room.square < 1);
+
+            do {
+                std::cout << "Enter room type: ";
+                std::cin >> type;
+            } while (type < 0 || type > 4);
+
+            room.type = static_cast<RoomType>(type);
+
+            floor.rooms.push_back(room);
+        }
+
+        build.floors.push_back(floor);
+    }
+
+    return build;
+}
+
+Build buildGarage() {
+    Build build;
+    build.type = BuildType::GARAGE;
+
+    do {
+        std::cout << "Enter square garage: ";
+        std::cin >> build.square;
+    } while (build.square < 1);
+
+    return build;
+}
+
+Build buildBarn() {
+    Build build;
+    build.type = BuildType::BARN;
+
+    do {
+        std::cout << "Enter square barn: ";
+        std::cin >> build.square;
+    } while (build.square < 1);
+
+    return build;
+}
+
+Build buildBath() {
+    Build build;
+    build.type = BuildType::BATH;
+
+    do {
+        std::cout << "Enter square bath: ";
+        std::cin >> build.square;
+    } while (build.square < 1);
+
+    std::cout << "Add bake to bath? ";
+    getAns(build.bake);
+
+    return build;
+}
+
+Plot fillPlot() {
+    Plot plot;
+    int co = 0;
+
+    // Houses
+    do {
+        std::cout << "How many build house? ";
+        std::cin >> co;
+    } while (co < 1);
+
+    for (int i = 0; i < co; ++i) {
+        plot.build.push_back(buildHouse());
+    }
+
+    // Garages
+    do {
+        std::cout << "How many build garage? ";
+        std::cin >> co;
+    } while (co < 0);
+
+    for (int i = 0; i < co; ++i) {
+        plot.build.push_back(buildGarage());
+    }
+
+    // Barns
+    do {
+        std::cout << "How many build barn? ";
+        std::cin >> co;
+    } while (co < 0);
+
+    for (int i = 0; i < co; ++i) {
+        plot.build.push_back(buildBarn());
+    }
+
+    // Bath
+    do {
+        std::cout << "How many build bath? ";
+        std::cin >> co;
+    } while (co < 0);
+
+    for (int i = 0; i < co; ++i) {
+        plot.build.push_back(buildBath());
     }
 }
 
 int main()
 {
-    int dBuf;
-    std::vector<stPlot> plots;
+    int coPlots = 0;
+    std::vector<Plot> plots;
 
-    std::cout << "Input the number of parcels: ";
-    std::cin >> dBuf;
-
-    int coPlots = dBuf;
+    do {
+        std::cout << "Enter count of plots: ";
+        std::cin >> coPlots;
+    } while (coPlots < 1);
 
     for (int i = 0; i < coPlots; ++i) {
-        stPlot temp;
-        do {
-            cleanCin();
-            std::cout << "Enter square plot: ";
-            std::cin >> dBuf;
-        } while (dBuf < 1);
-        temp.sqr = dBuf;
-
-        do {
-            cleanCin();
-            std::cout << "Enter floor count in home (1-3): ";
-            std::cin >> dBuf;
-        } while (dBuf < 1 || dBuf > 3);
-
-        int floor = dBuf;
-        for (int j = 0; j < floor; ++j) {
-            do {
-                cleanCin();
-                std::cout << "Enter room count on " << j + 1 << " floor (2 - 4): ";
-                std::cin >> dBuf;
-            } while (dBuf < 2 || dBuf > 4);
-
-            int room = dBuf;
-            for (int k = 0; k < room; ++k) {
-                stRoom tempRoom;
-                std::cout << "Types: 1. bedroom, 2. kitchen, 3. bathroom, 4. nursery, 5. living room." << std::endl;
-                do {
-                    cleanCin();
-                    std::cout << "Enter type room " << k + 1 << " (1-5): ";
-                    std::cin >> dBuf;
-                } while (dBuf < 1 || dBuf > 5);
-                tempRoom.type = dBuf;
-                do {
-                    cleanCin();
-                    std::cout << "Enter square room " << k + 1 << " (1-5): ";
-                    std::cin >> dBuf;
-                } while (dBuf < 1);
-                tempRoom.sqr = dBuf;
-
-                temp.home.rooms.push_back(tempRoom);
-            }
-        }
-
-        std::cout << "Add bake to house? ";
-        getAns(temp.home.bake);
-
-        std::cout << "Build garage? ";
-        getAns(temp.garage.inc);
-
-        if (temp.garage.inc) {
-            do {
-                cleanCin();
-                std::cout << "Enter square garage: ";
-                std::cin >> dBuf;
-            } while (dBuf < 1);
-            temp.garage.sqr = dBuf;
-        }
-
-        std::cout << "Build barn? ";
-        getAns(temp.barn.inc);
-
-        if (temp.barn.inc) {
-            do {
-                cleanCin();
-                std::cout << "Enter square barn: ";
-                std::cin >> dBuf;
-            } while (dBuf < 1);
-            temp.barn.sqr = dBuf;
-        }
-
-        std::cout << "Build bath? ";
-        getAns(temp.bath.inc);
-
-        if (temp.bath.inc) {
-            do {
-                cleanCin();
-                std::cout << "Enter square bath: ";
-                std::cin >> dBuf;
-            } while (dBuf < 1);
-            temp.bath.sqr = dBuf;
-
-            std::cout << "Add bake to bath? ";
-            getAns(temp.bath.bake);
-        }
-
-        plots.push_back(temp);
+        plots.push_back(fillPlot());
     }
     
     std::cout << "Plots: " << plots.size() << std::endl;
