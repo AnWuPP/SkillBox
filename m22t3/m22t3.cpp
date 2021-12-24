@@ -6,7 +6,7 @@ bool isAnagram(std::string& first, std::string& second) {
 	bool fail = first == second || first.length() != second.length();
 
 	for (int i = 0; i < first.length() && !fail; ++i) {
-		fail = second.find(first[i]) == std::string::npos;
+		fail = std::count(first.begin(), first.end(), first[i]) != std::count(second.begin(), second.end(), first[i]);
 	}
 
 	return !fail;
