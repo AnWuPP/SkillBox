@@ -18,7 +18,7 @@ bool isAnagram(std::string& one, std::string& two) {
 		else
 			coTwo.insert(std::pair<char, int>(two[i], 1));
 	}
-	fail = coOne.size() != coTwo.size();
+	fail = fail || coOne.size() != coTwo.size();
 	for (std::map<char, int>::iterator it = coOne.begin(), jt = coTwo.begin(); it != coOne.end() && jt != coTwo.end() && !fail; ++it, ++jt) {
 		fail = it->first != jt->first || it->second != jt->second;
 	}
