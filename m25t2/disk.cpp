@@ -15,8 +15,10 @@ std::vector<int> load() {
 	std::vector<int> data(8, 0);
 	std::ifstream file(DATABSE);
 	if (file.is_open()) {
-		for (int i = 0; i < data.size() && !file.eof(); ++i)
-			file >> data[i];
+		for (int& v : data) {
+			if (!file.eof())
+				file >> v;
+		}
 		file.close();
 	}
 	return data;
