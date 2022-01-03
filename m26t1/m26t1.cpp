@@ -108,7 +108,5 @@ int main()
             player.pause();
         else if (cmd == "next")
             player.next();
-        else
-            std::cout << "Unknown command" << std::endl;
     }
 }
