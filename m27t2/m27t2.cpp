@@ -22,7 +22,7 @@ public:
 	Color color = Color::NONE;
 	virtual double square() = 0;
 	virtual Rect rect() = 0;
-	virtual ~Figure() = 0;
+	virtual ~Figure() = default;
 };
 
 class Circle : public Figure {
@@ -41,7 +41,7 @@ public:
 
 	void dump() {
 		Rect rt = rect();
-		std::printf("X: %f Y: %f, Radius: %f, Rect: %f %f", x, y, r, rt.x, rt.y);
+		std::printf("X: %f Y: %f, Radius: %f, Rect: %f %f, Square: %f", x, y, r, rt.x, rt.y, square());
 	}
 };
 
@@ -61,7 +61,7 @@ public:
 
 	void dump() {
 		Rect rt = rect();
-		std::printf("X: %f Y: %f, Edge: %f, Rect: %f %f", x, y, a, rt.x, rt.y);
+		std::printf("X: %f Y: %f, Edge: %f, Rect: %f %f, Square: %f", x, y, a, rt.x, rt.y, square());
 	}
 
 private:
@@ -86,7 +86,7 @@ public:
 
 	void dump() {
 		Rect rt = rect();
-		std::printf("X: %f Y: %f, Edge: %f, Rect: %f %f", x, y, a, rt.x, rt.y);
+		std::printf("X: %f Y: %f, Edge: %f, Rect: %f %f, Square: %f", x, y, a, rt.x, rt.y, square());
 	}
 };
 
@@ -107,7 +107,7 @@ public:
 
 	void dump() {
 		Rect rt = rect();
-		std::printf("X: %f Y: %f, W: %f H: %f, Rect: %f %f", x, y, a, b, rt.x, rt.y);
+		std::printf("X: %f Y: %f, W: %f H: %f, Rect: %f %f, Square: %f", x, y, a, b, rt.x, rt.y, square());
 	}
 };
 
