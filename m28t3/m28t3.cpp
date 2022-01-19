@@ -6,7 +6,7 @@
 #include <random>
 
 int genRandom(int min, int max) {
-	std::random_device rd;
+	static thread_local std::random_device rd;
 	std::uniform_int_distribution<int> uid(min, max);
 	return uid(rd);
 }
@@ -15,6 +15,7 @@ class Kitchen {
 	std::vector<int> orders;
 	std::vector<int> cooked;
 	std::mutex work;
+	bool cooking = false;
 	int count = 0;
 
 public:
@@ -45,14 +46,16 @@ public:
 	}
 
 	static void cookOrder(Kitchen* kitchen) {
-		if (kitchen->orders.size() == 0)
+		if (kitchen->orders.size() == 0 || kitchen->cooking)
 			return;
+		kitchen->cooking = true;
 		std::this_thread::sleep_for(std::chrono::seconds(genRandom(5, 15)));
 		std::lock_guard<std::mutex> lock{ kitchen->work };
 		auto first = kitchen->orders.begin();
 		std::cout << "The cook has prepared " << kitchen->getNameEat(*first) << std::endl;
 		kitchen->cooked.push_back(*first);
 		kitchen->orders.erase(first);
+		kitchen->cooking = false;
 	}
 
 	static void takeOrder(Kitchen* kitchen) {
