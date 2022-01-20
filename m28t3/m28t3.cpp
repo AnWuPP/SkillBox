@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <string>
-#include <vector>
+#include <queue>
 #include <thread>
 #include <mutex>
 #include <random>
@@ -12,8 +12,8 @@ int genRandom(int min, int max) {
 }
 
 class Kitchen {
-	std::vector<int> orders;
-	std::vector<int> cooked;
+	std::queue<int> orders;
+	std::queue<int> cooked;
 	std::mutex work;
 	bool cooking = false;
 	int count = 0;
@@ -37,45 +37,43 @@ public:
 		}
 	}
 
-	static void getOrder(Kitchen* kitchen) {
+	void getOrder() {
 		std::this_thread::sleep_for(std::chrono::seconds(genRandom(5, 10)));
-		std::lock_guard<std::mutex> lock{ kitchen->work };
+		std::lock_guard<std::mutex> lock{ work };
 		int eat = genRandom(0, 4);
-		std::cout << "The waiter took the order " << kitchen->getNameEat(eat) << std::endl;
-		kitchen->orders.push_back(eat);
+		std::cout << "The waiter took the order " << getNameEat(eat) << std::endl;
+		orders.push(eat);
 	}
 
-	static void cookOrder(Kitchen* kitchen) {
-		if (kitchen->orders.size() == 0 || kitchen->cooking)
+	void cookOrder() {
+		if (orders.size() == 0 || cooking)
 			return;
-		kitchen->cooking = true;
+		cooking = true;
 		std::this_thread::sleep_for(std::chrono::seconds(genRandom(5, 15)));
-		std::lock_guard<std::mutex> lock{ kitchen->work };
-		auto first = kitchen->orders.begin();
-		std::cout << "The cook has prepared " << kitchen->getNameEat(*first) << std::endl;
-		kitchen->cooked.push_back(*first);
-		kitchen->orders.erase(first);
-		kitchen->cooking = false;
+		std::lock_guard<std::mutex> lock{ work };
+		auto first = orders.front();
+		std::cout << "The cook has prepared " << getNameEat(first) << std::endl;
+		cooked.push(first);
+		orders.pop();
+		cooking = false;
 	}
 
-	static void takeOrder(Kitchen* kitchen) {
-		if (kitchen->cooked.size() == 0)
+	void takeOrder() {
+		if (cooked.size() == 0)
 			return;
 		std::this_thread::sleep_for(std::chrono::seconds(30));
-		std::lock_guard<std::mutex> lock{ kitchen->work };
-		auto first = kitchen->cooked.begin();
-		std::cout << "Courier picked up " << kitchen->getNameEat(*first) << std::endl;
-		kitchen->cooked.erase(first);
-		kitchen->count++;
+		std::lock_guard<std::mutex> lock{ work };
+		auto first = cooked.front();
+		std::cout << "Courier picked up " << getNameEat(first) << std::endl;
+		cooked.pop();
+		count++;
 	}
 
-	static void proccess(Kitchen* kitchen) {
-		if (kitchen == nullptr)
-			return;
-		while (kitchen->count < 10) {
-			std::thread get(Kitchen::getOrder, kitchen);
-			std::thread cook(Kitchen::cookOrder, kitchen);
-			std::thread take(Kitchen::takeOrder, kitchen);
+	void proccess() {
+		while (count < 10) {
+			std::thread get(&Kitchen::getOrder, this);
+			std::thread cook(&Kitchen::cookOrder, this);
+			std::thread take(&Kitchen::takeOrder, this);
 			get.join();
 			cook.join();
 			take.join();
@@ -86,5 +84,5 @@ public:
 
 int main() {
 	Kitchen kitchen;
-	Kitchen::proccess(&kitchen);
+	kitchen.proccess();
 }
