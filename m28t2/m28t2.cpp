@@ -28,8 +28,8 @@ public:
 
 void Train::move(Train* t) {
     std::this_thread::sleep_for(std::chrono::seconds(t->roadTime));
-    std::cout << t->getId() << " arrived" << std::endl;
     std::lock_guard<std::mutex> m{ state };
+    std::cout << t->getId() << " arrived" << std::endl;
     std::string cmd = "";
     std::cout << "Wait for you command for deport train " << t->getId() << std::endl;
     while (cmd != "deport") {

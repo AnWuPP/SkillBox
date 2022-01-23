@@ -14,9 +14,11 @@ int genRandom(int min, int max) {
 class Kitchen {
 	std::queue<int> orders;
 	std::queue<int> cooked;
-	std::mutex work;
+	std::mutex work_lock;
+	std::mutex delevery_lock;
 	bool cooking = false;
 	int count = 0;
+	int max = 10;
 
 public:
 
@@ -29,7 +31,7 @@ public:
 		case 2:
 			return "Stake";
 		case 3:
-			return "Salat";
+			return "Salad";
 		case 4:
 			return "Sushi";
 		default:
@@ -38,47 +40,50 @@ public:
 	}
 
 	void getOrder() {
-		std::this_thread::sleep_for(std::chrono::seconds(genRandom(5, 10)));
-		std::lock_guard<std::mutex> lock{ work };
-		int eat = genRandom(0, 4);
-		std::cout << "The waiter took the order " << getNameEat(eat) << std::endl;
-		orders.push(eat);
+		while (count < max) {
+			std::this_thread::sleep_for(std::chrono::seconds(genRandom(5, 10)));
+			std::lock_guard<std::mutex> lock{ work_lock };
+			int eat = genRandom(0, 4);
+			std::cout << "The waiter took the order " << getNameEat(eat) << std::endl;
+			orders.push(eat);
+		}
 	}
 
 	void cookOrder() {
-		if (orders.size() == 0 || cooking)
-			return;
-		cooking = true;
-		std::this_thread::sleep_for(std::chrono::seconds(genRandom(5, 15)));
-		std::lock_guard<std::mutex> lock{ work };
-		auto first = orders.front();
-		std::cout << "The cook has prepared " << getNameEat(first) << std::endl;
-		cooked.push(first);
-		orders.pop();
-		cooking = false;
+		while (count < max) {
+			std::this_thread::sleep_for(std::chrono::seconds(genRandom(5, 15)));
+			std::lock_guard<std::mutex> lock{ work_lock };
+			if (orders.size() == 0 || cooking)
+				continue;
+			cooking = true;
+			auto first = orders.front();
+			std::cout << "The cook has prepared " << getNameEat(first) << std::endl;
+			cooked.push(first);
+			orders.pop();
+			cooking = false;
+		}
 	}
 
 	void takeOrder() {
-		if (cooked.size() == 0)
-			return;
-		std::this_thread::sleep_for(std::chrono::seconds(30));
-		std::lock_guard<std::mutex> lock{ work };
-		auto first = cooked.front();
-		std::cout << "Courier picked up " << getNameEat(first) << std::endl;
-		cooked.pop();
-		count++;
+		while (count < max) {
+			std::this_thread::sleep_for(std::chrono::seconds(30));
+			std::lock_guard<std::mutex> lock{ delevery_lock };
+			if (cooked.size() == 0)
+				continue;
+			auto first = cooked.front();
+			std::cout << "Courier picked up " << getNameEat(first) << std::endl;
+			cooked.pop();
+			count++;
+		}
 	}
 
 	void proccess() {
-		while (count < 10) {
-			std::thread get(&Kitchen::getOrder, this);
-			std::thread cook(&Kitchen::cookOrder, this);
-			std::thread take(&Kitchen::takeOrder, this);
-			get.join();
-			cook.join();
-			take.join();
-		}
-		std::cout << "Mission complite, ten order finished" << std::endl;
+		std::thread get(&Kitchen::getOrder, this);
+		std::thread cook(&Kitchen::cookOrder, this);
+		std::thread take(&Kitchen::takeOrder, this);
+		get.join();
+		cook.join();
+		take.join();
 	}
 };
 
