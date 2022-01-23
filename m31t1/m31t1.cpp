@@ -71,14 +71,17 @@ int main() {
 	shared_ptr_toy sphere("sphere");
 	shared_ptr_toy toy(new Toy("toy"));
 	shared_ptr_toy bone_two; // no state
+
 	std::shared_ptr<Toy> bone_test;
 	//std::cout << bone_test->getName() << std::endl;
 	// Test pointer and compare with defaul shared_ptr, result: exception by read data for my pointer and std::shared_ptr
 	// std::shared_ptr has no state if not init him
 	bone_two = make_shared_ptr(bone); // set state
+
 	std::cout << bone->getName() << " and " << sphere->getName() << std::endl;
 	sphere = bone;
 	std::cout << "Call operator =" << std::endl;
 	std::cout << bone->getName() << " and " << sphere->getName() << std::endl;
+
 	std::cout << "Bone two: " << bone_two->getName() << std::endl;
 }
