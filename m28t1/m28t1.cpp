@@ -11,13 +11,6 @@ struct Swimmer {
 	double dist = 0;
 	std::time_t start = 0, end = 0;
 	std::thread th;
-	Swimmer() = default;
-	Swimmer(const Swimmer& oth) {
-		swap(this, &oth);
-	};
-	void swap(const Swimmer* lhs, const Swimmer* rhs) {
-		lhs = std::move(rhs);
-	}
 };
 
 class Swimmers {
