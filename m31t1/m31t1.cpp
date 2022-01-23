@@ -15,6 +15,12 @@ private:
 class shared_ptr_toy {
 public:
 	shared_ptr_toy() = default;
+
+	shared_ptr_toy(Toy* _ptr) {
+		ptr = _ptr;
+		count = new int(1);
+	}
+
 	shared_ptr_toy(std::string name) {
 		ptr = new Toy(name);
 		count = new int(1);
@@ -63,6 +69,7 @@ shared_ptr_toy make_shared_ptr(shared_ptr_toy oth) {
 int main() {
 	shared_ptr_toy bone = make_shared_ptr("bone");
 	shared_ptr_toy sphere("sphere");
+	shared_ptr_toy toy(new Toy("toy"));
 	shared_ptr_toy bone_two; // no state
 	std::shared_ptr<Toy> bone_test;
 	//std::cout << bone_test->getName() << std::endl;
