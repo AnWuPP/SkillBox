@@ -14,7 +14,7 @@ public:
 		for (auto& e : data) {
 			sum += e;
 		}
-		return T / static_cast<T>(data.size());
+		return sum / static_cast<T>(data.size());
 	}
 };
 
