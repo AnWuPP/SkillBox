@@ -1,0 +1,33 @@
+{
+	"title": "Soul",
+	"country": "USA",
+	"created_at": "25.12.2020",
+	"studios": [
+		{ "name": "Walt Disney Pictures" },
+		{ "name": "Pixar Animation Studios" }
+	],
+	"writers": [
+		{ "name": "Pit Dokter" },
+		{ "name": "Mike Jons" },
+		{ "name": "Cemp Powers" }
+	],
+	"pdorucer": "Dana Murray",
+	"actors": [
+		{
+			"name": "Jame Fox",
+			"role": "Joe"
+		},
+		{
+			"name": "Rachel House",
+			"role": "Terry"
+		},
+		{
+			"name": "Gram Norton",
+			"role": "Moonwind"
+		},
+		{
+			"name": "Andjela Bassett",
+			"role": "Dorothea"
+		}
+	]
+}

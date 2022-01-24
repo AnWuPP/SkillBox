@@ -1,0 +1,162 @@
+{
+  "Soul": {
+    "country": "USA",
+    "created_at": "25.12.2020",
+    "studios": [
+      { "name": "Walt Disney Pictures" },
+      { "name": "Pixar Animation Studios" }
+    ],
+    "writers": [
+      { "name": "Pit Dokter" },
+      { "name": "Mike Jons" },
+      { "name": "Cemp Powers" }
+    ],
+    "pdorucer": "Dana Murray",
+    "actors": [
+      {
+        "name": "Jame Fox",
+        "role": "Joe"
+      },
+      {
+        "name": "Rachel House",
+        "role": "Terry"
+      },
+      {
+        "name": "Gram Norton",
+        "role": "Moonwind"
+      },
+      {
+        "name": "Andjela Bassett",
+        "role": "Dorothea"
+      }
+    ]
+  },
+  "Soul_2": {
+    "country": "USA",
+    "created_at": "25.12.2020",
+    "studios": [
+      { "name": "Walt Disney Pictures" },
+      { "name": "Pixar Animation Studios" }
+    ],
+    "writers": [
+      { "name": "Pit Dokter" },
+      { "name": "Mike Jons" },
+      { "name": "Cemp Powers" }
+    ],
+    "pdorucer": "Dana Murray",
+    "actors": [
+      {
+        "name": "Jame Fox",
+        "role": "Joe"
+      },
+      {
+        "name": "Rachel House",
+        "role": "Terry"
+      },
+      {
+        "name": "Gram Norton",
+        "role": "Moonwind"
+      },
+      {
+        "name": "Andjela Bassett",
+        "role": "Dorothea"
+      }
+    ]
+  },
+  "Incorrigible_Ron": {
+    "country": "USA",
+    "created_at": "16.06.2021",
+    "studios": [
+      { "name": "20th Century Fox Animation" },
+      { "name": "20th Century Studios" },
+      { "name": "Locksmith Animation" }
+    ],
+    "writers": [
+      { "name": "Peter Baynham" },
+      { "name": "Lara Smith" }
+    ],
+    "pdorucer": "Peter Baynham",
+    "actors": [
+      {
+        "name": "Jack Dylan Grazer",
+        "role": "Barney"
+      },
+      {
+        "name": "Zach Galifianakis",
+        "role": "Ron"
+      },
+      {
+        "name": "Ed Helms",
+        "role": "Graham"
+      },
+      {
+        "name": "Olivia Colman",
+        "role": "Donka"
+      }
+    ]
+  },
+  "Incorrigible_Ron_2": {
+    "country": "USA",
+    "created_at": "16.06.2021",
+    "studios": [
+      { "name": "20th Century Fox Animation" },
+      { "name": "20th Century Studios" },
+      { "name": "Locksmith Animation" }
+    ],
+    "writers": [
+      { "name": "Peter Baynham" },
+      { "name": "Lara Smith" }
+    ],
+    "pdorucer": "Peter Baynham",
+    "actors": [
+      {
+        "name": "Jack Dylan Grazer",
+        "role": "Barney"
+      },
+      {
+        "name": "Zach Galifianakis",
+        "role": "Ron"
+      },
+      {
+        "name": "Ed Helms",
+        "role": "Graham"
+      },
+      {
+        "name": "Olivia Colman",
+        "role": "Donka"
+      }
+    ]
+  },
+  "Incorrigible_Ron_3": {
+    "country": "USA",
+    "created_at": "16.06.2021",
+    "studios": [
+      { "name": "20th Century Fox Animation" },
+      { "name": "20th Century Studios" },
+      { "name": "Locksmith Animation" }
+    ],
+    "writers": [
+      { "name": "Peter Baynham" },
+      { "name": "Lara Smith" }
+    ],
+    "pdorucer": "Peter Baynham",
+    "actors": [
+      {
+        "name": "Jack Dylan Grazer",
+        "role": "Barney"
+      },
+      {
+        "name": "Zach Galifianakis",
+        "role": "Ron"
+      },
+      {
+        "name": "Ed Helms",
+        "role": "Graham"
+      },
+      {
+        "name": "Olivia Colman",
+        "role": "Donka"
+      }
+    ]
+  }
+}
