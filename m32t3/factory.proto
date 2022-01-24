@@ -1,0 +1,9 @@
+syntax="proto2";
+
+message Factory {
+	required int32 created_year = 1;
+	required string adrress = 2;
+	required string name = 3;
+	optional string type_work = 4;
+	optional bool inter_eco = 5;
+}
