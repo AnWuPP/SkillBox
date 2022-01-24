@@ -29,6 +29,7 @@ public:
     ListGraph() {}
 
     ListGraph(IGraph* _oth) {
+        peeks.clear();
         std::vector<int> vert = _oth->GetVertices();
         std::vector<int> tmp;
         for (auto& from : vert) {
@@ -88,6 +89,7 @@ class MatrixGraph final : public IGraph {
 public:
     MatrixGraph() {};
     MatrixGraph(IGraph* _oth) {
+        matrix.clear();
         std::vector<int> vert = _oth->GetVertices();
         std::vector<int> tmp;
         for (auto& from : vert) {
