@@ -365,3 +365,15 @@ FodyWeavers.xsd
 *.vcxproj.filters
 *.vcxproj
 /SkillBox.sln
+/m32t3/include/google/protobuf/wrappers.proto
+/m32t3/include/google/protobuf/type.proto
+/m32t3/include/google/protobuf/timestamp.proto
+/m32t3/include/google/protobuf/struct.proto
+/m32t3/include/google/protobuf/source_context.proto
+/m32t3/include/google/protobuf/field_mask.proto
+/m32t3/include/google/protobuf/empty.proto
+/m32t3/include/google/protobuf/duration.proto
+/m32t3/include/google/protobuf/descriptor.proto
+/m32t3/include/google/protobuf/compiler/plugin.proto
+/m32t3/include/google/protobuf/api.proto
+/m32t3/include/google/protobuf/any.proto
