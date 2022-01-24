@@ -36,6 +36,7 @@ public:
             for (auto& to : tmp) {
                 AddEdge(from, to);
             }
+            tmp.clear();
         }
     }
 
@@ -94,6 +95,7 @@ public:
             for (auto& to : tmp) {
                 AddEdge(from, to);
             }
+            tmp.clear();
         }
     };
     virtual void AddEdge(int from, int to) {
