@@ -12,7 +12,7 @@ public:
     virtual int VerticesCount() const = 0; // Метод должен считать текущее количество вершин
     virtual void GetNextVertices(int vertex, std::vector<int>& vertices) const = 0; // Для конкретной вершины метод выводит в вектор “вершины” все вершины, в которые можно дойти по ребру из данной
     virtual void GetPrevVertices(int vertex, std::vector<int>& vertices) const = 0; // Для конкретной вершины метод выводит в вектор “вершины” все вершины, из которых можно дойти по ребру в данную
-    virtual std::vector<int> GetVertices() = 0; // Вернуть все вершины. Нужно для копирования.
+    virtual std::vector<int> GetVertices() const = 0; // Вернуть все вершины. Нужно для копирования.
 };
 
 class ListGraph final : public IGraph{
@@ -41,7 +41,7 @@ public:
         }
     }
 
-    virtual void AddEdge(int from, int to) {
+    virtual void AddEdge(int from, int to) override {
         int v = FindEdge(from);
         int t = FindEdge(to);
         if (v != -1) {
@@ -53,11 +53,11 @@ public:
         }
     }
 
-    virtual int VerticesCount() const {
+    virtual int VerticesCount() const override {
         return static_cast<int>(peeks.size());
     }
 
-    virtual void GetNextVertices(int vertex, std::vector<int>& vertices) const {
+    virtual void GetNextVertices(int vertex, std::vector<int>& vertices) const override {
         int v = FindEdge(vertex);
         if (v != -1) {
             std::vector<int> tmp(peeks[v].begin() + 1, peeks[v].end());
@@ -65,7 +65,7 @@ public:
         }
     }
 
-    virtual void GetPrevVertices(int vertex, std::vector<int>& vertices) const {
+    virtual void GetPrevVertices(int vertex, std::vector<int>& vertices) const override {
         for (int i = 0, ie = VerticesCount(); i != ie; ++i) {
             for (int j = 1, je = static_cast<int>(peeks[i].size()); j != je; ++j) {
                 if (peeks[i][j] == vertex)
@@ -74,7 +74,7 @@ public:
         }
     }
 
-    virtual std::vector<int> GetVertices() {
+    virtual std::vector<int> GetVertices() const override {
         std::vector<int> tmp;
         for (auto& p : peeks) {
             tmp.push_back(p[0]);
@@ -100,7 +100,7 @@ public:
             tmp.clear();
         }
     };
-    virtual void AddEdge(int from, int to) {
+    virtual void AddEdge(int from, int to) override {
         int max = (from > to ? from : to) + 1;
         if (matrix.size() < max) {
             matrix.resize(max);
@@ -115,10 +115,10 @@ public:
         }
         matrix[from][to] = 1;
     }
-    virtual int VerticesCount() const {
+    virtual int VerticesCount() const override {
         return static_cast<int>(matrix.size());
     }
-    virtual void GetNextVertices(int vertex, std::vector<int>& vertices) const {
+    virtual void GetNextVertices(int vertex, std::vector<int>& vertices) const override {
         if (vertex >= matrix.size())
             return;
         for (int j = 1, je = matrix.size(); j != je; ++j) {
@@ -127,7 +127,7 @@ public:
             }
         }
     }
-    virtual void GetPrevVertices(int vertex, std::vector<int>& vertices) const {
+    virtual void GetPrevVertices(int vertex, std::vector<int>& vertices) const override {
         if (vertex >= matrix.size())
             return;
         for (int j = 1, je = matrix.size(); j != je; ++j) {
@@ -136,7 +136,7 @@ public:
             }
         }
     }
-    virtual std::vector<int> GetVertices() {
+    virtual std::vector<int> GetVertices() const override {
         std::vector<int> tmp;
         for (int i = 1, ie = matrix.size(); i != ie; ++i) {
             for (int j = 1, je = matrix.size(); j != je; ++j) {
