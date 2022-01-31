@@ -377,3 +377,4 @@ FodyWeavers.xsd
 /m32t3/include/google/protobuf/compiler/plugin.proto
 /m32t3/include/google/protobuf/api.proto
 /m32t3/include/google/protobuf/any.proto
+*.hint

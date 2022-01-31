@@ -6,36 +6,34 @@ class Animal {
 protected:
     std::string name = "unk";
     unsigned int age = 0;
-    int id = 0;
 public:
-    virtual int get() = 0;
+    virtual std::string voice() = 0;
+    virtual std::string get(Animal*) = 0;
     virtual ~Animal() = default;
 };
 
 class Dog : public Animal {
 public:
-    Dog() {
-        id = 0;
+    virtual std::string voice() {
+        return "Bark";
     }
-    virtual int get() {
-        return id;
+    virtual std::string get(Animal* a) {
+        return (voice() == a->voice() ? "Woof" : "Bark");
     }
 };
 
 class Cat : public Animal {
 public:
-    Cat() {
-        id = 1;
+    virtual std::string voice() {
+        return "Meow";
     }
-    virtual int get() {
-        return id;
+    virtual std::string get(Animal* a) {
+        return (voice() == a->voice() ? "Purr" : "Meow");
     }
 };
 
 void meeting(Animal* a, Animal* b) {
-    std::array<std::string, 4> meetings{ "Woof Woof", "Bark Meow", "Meow Bark", "Purr Purr" };
-    std::size_t index = (a->get() << 1) | b->get();
-    std::cout << meetings[index] << std::endl;
+    std::cout << a->get(b) << " " << b->get(a) << std::endl;
 }
 
 int main()
