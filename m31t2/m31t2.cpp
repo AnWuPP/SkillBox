@@ -7,7 +7,7 @@ class IGraph {
 public:
     virtual ~IGraph() {}
     IGraph() {};
-    IGraph(IGraph* _oth) {};
+    IGraph(const IGraph& _oth) {};
     virtual void AddEdge(int from, int to) = 0; // Метод принимает вершины начала и конца ребра и добавляет ребро
     virtual int VerticesCount() const = 0; // Метод должен считать текущее количество вершин
     virtual void GetNextVertices(int vertex, std::vector<int>& vertices) const = 0; // Для конкретной вершины метод выводит в вектор “вершины” все вершины, в которые можно дойти по ребру из данной
@@ -15,7 +15,7 @@ public:
     virtual std::vector<int> GetVertices() const = 0; // Вернуть все вершины. Нужно для копирования.
 };
 
-class ListGraph final : public IGraph{
+class ListGraph final : public IGraph {
     std::vector<std::vector<int>> peeks;
 
     int FindEdge(int v) const {
@@ -28,12 +28,12 @@ class ListGraph final : public IGraph{
 public:
     ListGraph() {}
 
-    ListGraph(IGraph* _oth) {
+    ListGraph(const IGraph& _oth) {
         peeks.clear();
-        std::vector<int> vert = _oth->GetVertices();
+        std::vector<int> vert = _oth.GetVertices();
         std::vector<int> tmp;
         for (auto& from : vert) {
-            _oth->GetNextVertices(from, tmp);
+            _oth.GetNextVertices(from, tmp);
             for (auto& to : tmp) {
                 AddEdge(from, to);
             }
@@ -88,12 +88,12 @@ class MatrixGraph final : public IGraph {
 
 public:
     MatrixGraph() {};
-    MatrixGraph(IGraph* _oth) {
+    MatrixGraph(const IGraph& _oth) {
         matrix.clear();
-        std::vector<int> vert = _oth->GetVertices();
+        std::vector<int> vert = _oth.GetVertices();
         std::vector<int> tmp;
         for (auto& from : vert) {
-            _oth->GetNextVertices(from, tmp);
+            _oth.GetNextVertices(from, tmp);
             for (auto& to : tmp) {
                 AddEdge(from, to);
             }
@@ -151,7 +151,7 @@ public:
 
     void print() {
         int max = matrix.size();
-        for (int i = 0, ie = max; i < ie; ++i)  {
+        for (int i = 0, ie = max; i < ie; ++i) {
             for (int j = 0, je = max; j < je; ++j) {
                 std::cout << matrix[i][j] << " ";
             }
@@ -169,7 +169,7 @@ int main()
     list.AddEdge(3, 4);
     list.AddEdge(4, 1);
 
-    MatrixGraph matrix(&list);
+    MatrixGraph matrix(list);
     matrix.AddEdge(4, 3);
     matrix.AddEdge(5, 6);
     matrix.AddEdge(5, 6);
@@ -177,13 +177,15 @@ int main()
 
     matrix.print();
 
-    std::vector<int> v = matrix.GetVertices();
+    ListGraph lg = matrix;
+
+    std::vector<int> v = lg.GetVertices();
     for (auto& e : v) {
         std::cout << e << " ";
     }
     v.clear();
     std::cout << std::endl;
-    matrix.GetNextVertices(4, v);
+    lg.GetNextVertices(4, v);
     for (auto& e : v) {
         std::cout << e << " ";
     }
