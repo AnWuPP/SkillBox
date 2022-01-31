@@ -36,8 +36,11 @@ public:
 		if (&oth == this)
 			return *this;
 		if (ptr != nullptr) {
-			delete ptr;
-			delete count;
+			--(*count);
+			if (!*count) {
+				delete ptr;
+				delete count;
+			}
 		}
 		ptr = oth.ptr;
 		count = oth.count;
