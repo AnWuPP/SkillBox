@@ -378,3 +378,5 @@ FodyWeavers.xsd
 /m32t3/include/google/protobuf/api.proto
 /m32t3/include/google/protobuf/any.proto
 *.hint
+/m39t1/qml.qrc
+/m39t1/main.cpp
