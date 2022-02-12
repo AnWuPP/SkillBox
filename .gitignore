@@ -361,10 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/SkillBox
-*.vcxproj.filters
-*.vcxproj
-/SkillBox.sln
 /m32t3/include/google/protobuf/wrappers.proto
 /m32t3/include/google/protobuf/type.proto
 /m32t3/include/google/protobuf/timestamp.proto
